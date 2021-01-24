@@ -9,9 +9,9 @@ platform: x64
 configuration: Release
 
 install:
-  - choco install opencv
-  - ps: curl -fsSL https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-1.7.1%2Bcpu.zip -o libtorch.zip
+  - ps: Start-FileDownload 'https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-1.7.1%2Bcpu.zip' -FileName libtorch.zip
   - 7z x libtorch.zip -oC:\tools -aos
+  - choco install opencv
 
 cache:
   - C:\tools\opencv -> appveyor.yml
