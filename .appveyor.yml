@@ -1,0 +1,33 @@
+image: Visual Studio 2019
+
+environment:
+  CMAKE_PREFIX_PATH: "C:\\Qt\\6.0.0\\msvc2019_64"
+  OpenCV_DIR: "C:\\tools\\opencv\\Build\\x64\\vc15\\lib"
+
+platform: x64
+
+configuration: Release
+
+build:
+  project: ALL_BUILD.vcxproj
+
+before_build:
+  - "choco install opencv"
+  - cmake .
+
+after_build:
+  - "C:\\Qt\\6.0.0\\msvc2019_64\\bin\\windeployqt.exe Release\\qanji_scanner.exe"
+  - "xcopy C:\\tools\\opencv\\Build\\x64\\vc15\\bin\\*.dll Release"
+
+artifacts:
+  - path: Release
+    name: "$(APPVEYOR_PROJECT_NAME) $(APPVEYOR_BUILD_VERSION)"
+
+deploy:
+  - provider: GitHub
+    description: "Pre-built binaries for $(APPVEYOR_BUILD_VERSION)"
+    artifact: Release
+    auth_token:
+      secure: ejf850Qb9gnwPX1as/psNqi147kBFGNoy9tmyytr//rC4GUHgf4SmUxZOuRWlBoG
+    on:
+      branch: master
