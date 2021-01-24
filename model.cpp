@@ -6,8 +6,8 @@ Model::Model(std::string path) {
 }
 
 std::string Model::predict(QPixmap pixmap) {
-    int w = 32;
-    int h = w;
+    constexpr int w = 32;
+    constexpr int h = w;
     float input[1][3][w][h];
     auto image = pixmap.scaled(w, h).toImage();
     for (int x = 0; x < w; ++x) {
