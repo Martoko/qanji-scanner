@@ -10,7 +10,7 @@ configuration: Release
 
 install:
   - choco install opencv
-  - appveyor DownloadFile "https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-1.7.1%2Bcpu.zip" -FileName libtorch.zip
+  - appveyor DownloadFile "https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-1.7.1+cpu.zip" -FileName libtorch.zip
   - 7z x libtorch.zip -oC:\tools -aos
 
 cache:
