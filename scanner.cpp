@@ -4,7 +4,7 @@
 #include <QScreen>
 #include "scanner.h"
 
-Scanner::Scanner() : screenshotLabel(new QLabel(this)), timer(new QTimer(this)), model("/home/martoko/Code/qanji-scanner/model.pt") {
+Scanner::Scanner() : screenshotLabel(new QLabel(this)), timer(new QTimer(this)), model("model.pt") {
     setWindowTitle(tr("Qanji"));
 
     auto *mainLayout = new QVBoxLayout(this);
