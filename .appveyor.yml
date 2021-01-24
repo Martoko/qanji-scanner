@@ -21,12 +21,12 @@ after_build:
 
 artifacts:
   - path: Release
-    name: "$(APPVEYOR_PROJECT_NAME) $(APPVEYOR_BUILD_VERSION)"
+    name: "$(APPVEYOR_PROJECT_NAME)$(APPVEYOR_BUILD_VERSION)"
 
 deploy:
   - provider: GitHub
     description: "Pre-built binaries for $(APPVEYOR_BUILD_VERSION)"
-    artifact: "$(APPVEYOR_PROJECT_NAME) $(APPVEYOR_BUILD_VERSION)"
+    artifact: "$(APPVEYOR_PROJECT_NAME)$(APPVEYOR_BUILD_VERSION)"
     auth_token:
       secure: ejf850Qb9gnwPX1as/psNqi147kBFGNoy9tmyytr//rC4GUHgf4SmUxZOuRWlBoG
     on:
