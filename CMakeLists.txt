@@ -6,13 +6,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(QT_VERSION 6)
-set(REQUIRED_LIBS Core Gui Widgets)
-set(REQUIRED_LIBS_QUALIFIED Qt6::Core Qt6::Gui Qt6::Widgets)
-
-find_package(OpenCV REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
+find_package(OpenCV COMPONENTS core imgproc REQUIRED)
 find_package(Torch REQUIRED)
-include_directories(${OpenCV_INCLUDE_DIRS})
 
 set(SOURCES main.cpp scanner.cpp scanner.h)
 
@@ -22,5 +18,4 @@ else ()
     add_executable(${PROJECT_NAME} ${SOURCES})
 endif ()
 
-find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
-target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED} ${OpenCV_LIBS})
+target_link_libraries(${PROJECT_NAME} PRIVATE torch opencv_core opencv_imgproc Qt6::Core Qt6::Gui Qt6::Widgets)
