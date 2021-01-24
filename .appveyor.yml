@@ -1,7 +1,7 @@
 image: Visual Studio 2019
 
 environment:
-  CMAKE_PREFIX_PATH: "C:\\Qt\\6.0.0\\msvc2019_64;C:\\tools\\libtorch\\libtorch"
+  CMAKE_PREFIX_PATH: "C:\\Qt\\6.0.0\\msvc2019_64;C:\\tools\\libtorch"
   OpenCV_DIR: "C:\\tools\\opencv\\Build\\x64\\vc15\\lib"
 
 platform: x64
@@ -9,9 +9,10 @@ platform: x64
 configuration: Release
 
 install:
+  - choco install cuda
   - choco install opencv
   - appveyor DownloadFile https://download.pytorch.org/libtorch/cu102/libtorch-win-shared-with-deps-1.7.1.zip -FileName libtorch.zip
-  - 7z x libtorch.zip -oC:\tools\libtorch -aos
+  - 7z x libtorch.zip -oC:\tools -aos
 
 cache:
   - C:\tools\opencv -> appveyor.yml
