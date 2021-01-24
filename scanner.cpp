@@ -2,21 +2,30 @@
 #include <QGuiApplication>
 #include <QWindow>
 #include <QScreen>
+#include <QKeyEvent>
 #include "scanner.h"
 
-Scanner::Scanner() : screenshotLabel(new QLabel(this)), timer(new QTimer(this)), model("model.pt") {
+Scanner::Scanner() : screenshotLabel(new QLabel(this)), text(new QLineEdit(this)), model("model.pt") {
     setWindowTitle(tr("Qanji"));
 
     auto *mainLayout = new QVBoxLayout(this);
 
     screenshotLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    screenshotLabel->setMinimumSize(5, 5);
+    screenshotLabel->setMinimumSize(32, 32);
     screenshotLabel->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(screenshotLabel);
 
+    text->setFont(QFont("sans serif", 32));
+    text->setAlignment(Qt::AlignCenter);
+    mainLayout->addWidget(text);
+
     shootScreen();
-    connect(timer, SIGNAL(timeout()), this, SLOT(shootScreen()));
-    timer->start(100);
+}
+
+void Scanner::keyPressEvent(QKeyEvent *event) {
+    if (event->type() == QEvent::KeyPress && event->key() == Qt::Key_Shift) {
+        shootScreen();
+    }
 }
 
 void Scanner::resizeEvent(QResizeEvent *event) {
@@ -36,13 +45,6 @@ void Scanner::shootScreen() {
     QPoint cursorPosition = QCursor::pos();
     QScreen *screen = qApp->screenAt(cursorPosition);
     QRect screenGeometry = screen->geometry();
-//    std::cout << cursorPosition.x() << ", " << cursorPosition.y() << std::endl;
-//    cursorPosition = QPoint(cursorPosition.x() - screenGeometry.x(), cursorPosition.y() - screenGeometry.y());
-////    cursorPosition = cursorPosition - screen->geometry().topLeft();
-//    std::cout << cursorPosition.x() << ", " << cursorPosition.y() << std::endl;
-//    std::cout << screenGeometry.topLeft().x() << ", " << screenGeometry.topLeft().y() << std::endl;
-
-//    std::cout << screenGeometry.x() << ", " << screenGeometry.y() << ", " <<  screenGeometry.width() << ", " << screenGeometry.height() << std::endl;
 
     // Grab the 32x32 around the cursor
     auto clipGeometry = QRect(
@@ -80,5 +82,5 @@ void Scanner::shootScreen() {
                                         clipGeometry.width(), clipGeometry.height());
     updateScreenshotLabel();
 
-    std::cout << model.predict(originalPixmap) << std::endl;
+    text->setText(QString::fromStdString(model.predict(originalPixmap)));
 }

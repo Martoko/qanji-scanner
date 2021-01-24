@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QTimer>
+#include <QLineEdit>
 #include "model.h"
 
 class Scanner : public QWidget {
@@ -14,6 +15,8 @@ public:
 protected:
     void resizeEvent(QResizeEvent *event) override;
 
+    void keyPressEvent(QKeyEvent *event) override;
+
 private slots:
 
     void shootScreen();
@@ -21,10 +24,9 @@ private slots:
 private:
     Model model;
     QLabel *screenshotLabel;
-    QTimer *timer;
+    QLineEdit *text;
+    QPixmap originalPixmap;
 
     void updateScreenshotLabel();
-
-    QPixmap originalPixmap;
 };
 
