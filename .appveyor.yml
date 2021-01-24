@@ -8,11 +8,22 @@ platform: x64
 
 configuration: Release
 
+install:
+  - choco install opencv
+  - appveyor DownloadFile https://download.pytorch.org/libtorch/cu102/libtorch-win-shared-with-deps-1.7.1.zip -FileName libtorch.zip
+  - 7z x libtorch.zip -oC:\tools\libtorch -aos
+
+cache:
+  - libtorch.zip -> appveyor.yml
+  - C:\tools\libtorch -> appveyor.yml
+  - C:\tools\opencv -> appveyor.yml
+  - C:\ProgramData\chocolatey\bin -> appveyor.yml
+  - C:\ProgramData\chocolatey\lib -> appveyor.yml
+
 build:
   project: ALL_BUILD.vcxproj
 
 before_build:
-  - "choco install opencv"
   - cmake .
 
 after_build:
