@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QTimer>
+#include "model.h"
 
 class Scanner : public QWidget {
 Q_OBJECT
@@ -18,6 +19,7 @@ private slots:
     void shootScreen();
 
 private:
+    Model model;
     QLabel *screenshotLabel;
     QTimer *timer;
 

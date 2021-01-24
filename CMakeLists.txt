@@ -10,7 +10,7 @@ find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
 find_package(OpenCV COMPONENTS core imgproc REQUIRED)
 find_package(Torch REQUIRED)
 
-set(SOURCES main.cpp scanner.cpp scanner.h)
+set(SOURCES main.cpp scanner.cpp scanner.h model.cpp model.h kanji.h)
 
 if (WIN32)
     add_executable(${PROJECT_NAME} WIN32 ${SOURCES})
