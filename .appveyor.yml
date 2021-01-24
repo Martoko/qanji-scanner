@@ -26,7 +26,7 @@ artifacts:
 deploy:
   - provider: GitHub
     description: "Pre-built binaries for $(APPVEYOR_BUILD_VERSION)"
-    artifact: Release
+    artifact: "$(APPVEYOR_PROJECT_NAME) $(APPVEYOR_BUILD_VERSION)"
     auth_token:
       secure: ejf850Qb9gnwPX1as/psNqi147kBFGNoy9tmyytr//rC4GUHgf4SmUxZOuRWlBoG
     on:
