@@ -14,8 +14,6 @@ install:
   - 7z x libtorch.zip -oC:\tools\libtorch -aos
 
 cache:
-  - libtorch.zip -> appveyor.yml
-  - C:\tools\libtorch -> appveyor.yml
   - C:\tools\opencv -> appveyor.yml
   - C:\ProgramData\chocolatey\bin -> appveyor.yml
   - C:\ProgramData\chocolatey\lib -> appveyor.yml
@@ -29,6 +27,7 @@ before_build:
 after_build:
   - "C:\\Qt\\6.0.0\\msvc2019_64\\bin\\windeployqt.exe Release\\qanji_scanner.exe"
   - "xcopy C:\\tools\\opencv\\Build\\x64\\vc15\\bin\\*.dll Release"
+  - "xcopy C:\\tools\\libtorch\\lib\\*.dll Release"
 
 artifacts:
   - path: Release
