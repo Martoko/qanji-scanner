@@ -11,6 +11,7 @@ set(REQUIRED_LIBS Core Gui Widgets)
 set(REQUIRED_LIBS_QUALIFIED Qt6::Core Qt6::Gui Qt6::Widgets)
 
 find_package(OpenCV REQUIRED)
+find_package(Torch REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 set(SOURCES main.cpp scanner.cpp scanner.h)
